@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>practica 11</title>
+</head>
+<style type="text/css">
+#formu{
+	background-color:#FAF7DE;
+	
+}
+
+</style>
+   <link rel="stylesheet" type="text/css" href="Bootstrad/css/estilo.css">
+    <link  rel ="stylesheet" type="text/css" href="Bootstrad/css/bootstrap.min.css">
+    
+<body>
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js' type='text/javascript'></script>
+  
+<!--	///////////////////////////////////// CÓDIGO JQUERY ///////////////////////////////////////////  -->
+	
+<script>
+$(document).ready(function(){
+ 
+///////////////////////////////////// nombre ///////////////////////////////////////////  
+    
+          $("#nombre").keyup(function(){
+            
+             if($("#nombre").val() == ""){
+          document.getElementById('nom').innerHTML="Introduzca un nombre"
+      
+            }else{
+                 document.getElementById('nom').innerHTML=""
+            }
+
+        });
+///////////////////////////////////// apellidos ///////////////////////////////////////////  
+    
+      $("#apellidos").keyup(function(){
+            
+             if($("#apellidos").val() == ""){
+          document.getElementById('ape').innerHTML="Introduzca un/os apellido/os"
+      
+            }else{
+                 document.getElementById('ape').innerHTML=""
+            }
+
+        });
+///////////////////////////////////// dirección ///////////////////////////////////////////  
+    
+      $("#direccion").keyup(function(){
+            
+             if($("#direccion").val() == ""){
+          document.getElementById('dir').innerHTML="Introduzca una dirección"
+      
+            }else{
+                 document.getElementById('dir').innerHTML=""
+            }
+
+        });
+///////////////////////////////////// comarca ///////////////////////////////////////////  
+    
+        $("select[name=comarca]").change(function(){
+            if($('select[name=comarca]').val()=="baix penedes"){
+                document.getElementById('error').innerHTML="Se elegido la comarca correcta"
+            }else{
+                document.getElementById('error').innerHTML="Debe seleccinar la comarca del baix penedes"
+            }
+
+        });
+
+///////////////////////////////// telefono //////////////////////////////
+    
+        $("#t").keyup(function(){
+            
+           if ($("#t").val().length < 1) {  
+               document.getElementById('tlf').innerHTML="introduzca un telefono"    
+            }else if(isNaN($("#t").val())) { 
+           document.getElementById('tlf').innerHTML="El teléfono solo debe contener números" 
+           
+            }else if($("#t").val().length > 9) {  
+
+           document.getElementById('tlf').innerHTML="El teléfono debe tener 9 caracteres. Ej. 666112233" 
+  
+            }else if($("#t").val().length < 9){
+    	 	document.getElementById('tlf').innerHTML="El teléfono debe tener 9 caracteres. Ej. 666112233" 
+            }else{
+            document.getElementById('tlf').innerHTML="Número corecto" 	
+            } 
+            
+        });
+    
+ ////////////////////////////////////// Mail ///////////////////////////////////////////////
+    
+    $('#email').keyup(function(){
+
+        if( $("#email").val().indexOf('@yahoo.', 0) == -1 ) {
+              var regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
+
+            if (regex.test($('#email').val().trim())) {
+                document.getElementById('mail').innerHTML="ok! mail valido" 
+
+            } else {
+               document.getElementById('mail').innerHTML="Revise el mail ej: example@mail.com" 
+            }
+
+            return false;
+        } else{
+           document.getElementById('mail').innerHTML='El correo electrónico introducido no se permite.' 
+
+        }
+    });
+    
+//////////////////////////////////////////// fecha de nacimiento ///////////////////////////////////////////////
+    
+    $('#any').keyup(function(){
+        var f = new Date();
+        var menor= f.getFullYear()-13
+        if ($("#any").val() >= menor){
+        document.getElementById("menora").innerHTML="No permitido a menores de 12 años"
+        }else{
+        document.getElementById("menora").innerHTML="" 
+        }
+    });
+    $('#dia').keyup(function(){
+        if($("#dia").val() > 31 || $("#dia").val() < 1 ){
+        document.getElementById("menord").innerHTML="Debe indicar un número de día correcto"
+        }else{
+        document.getElementById("menord").innerHTML=""
+        }
+    });
+    $('#mes').keyup(function(){ 
+        if ($("#mes").val() > 12 || $("#mes").val() < 1 ){
+        document.getElementById("menorm").innerHTML="Debe indicar un número de mes correcto"
+        }else{
+        document.getElementById("menorm").innerHTML=""
+        }
+    });
+
+    
+//////////////////////////////////////////// validación del DNI /////////////////////////////////////////////// 
+    
+        $('#dni').keyup(function(){ 
+
+          var numero
+          var letr
+          var letra
+          var expresion_regular_dni
+          var dni= $("#dni").val()
+
+          expresion_regular_dni = /^\d{8}[a-zA-Z]$/;
+
+              if(expresion_regular_dni.test (dni) == true){
+                 numero = dni.substr(0,dni.length-1);
+                 letr = dni.substr(dni.length-1,1);
+                 numero = numero % 23;
+                 letra='TRWAGMYFPDXBNJZSQVHLCKET';
+                 letra=letra.substring(numero,numero+1);
+
+                if (letra!=letr.toUpperCase()) {       
+                    document.getElementById("id").innerHTML='Dni erroneo, la letra del NIF no se corresponde'
+                 }else{
+                     document.getElementById("id").innerHTML="Dni correcto"
+                 }
+              }else{
+                  document.getElementById("id").innerHTML="Dni erroneo, formato no válido"
+
+               }
+
+
+           });   
+
+ //////////////////////////////////////////// Matricula ///////////////////////////////////////////////  
+    
+                var matricu = [];
+                document.getElementById('mat1').innerHTML = matricu;
+
+             $("select[name=matricula]").change(function(){
+
+                 if($('select[name=matricula]').val()){
+                
+                 if(matricu.length<3){
+                document.getElementById('mat').innerHTML=matricu
+                matricu.push($('select[name=matricula]').val())
+                    
+                    
+                }
+      
+            }
+      }); 
+//////////////////////////////////////////// curso ///////////////////////////////////////////////  
+       
+            $("select[name=curso]").change(function(){
+     
+            if($('select[name=curso]').val()){
+         
+                document.getElementById('cur').innerHTML="Ha selecionado el curso: "+$('select[name=curso]').val()
+               
+ 
+         
+            }
+      }); 
+    
+//////////////////////////////////////////// año académico ///////////////////////////////////////////////  
+    
+      $('#anyAcademic').keyup(function(){
+ 
+            var f = new Date();
+            var ano= f.getFullYear()
+ 
+       
+            if ($("#anyAcademic").val()> ano){
+            document.getElementById("aca").innerHTML="El año académico ha de ser el actual"
+            }else{
+            document.getElementById("aca").innerHTML="año correcto"
+            }
+   
+    });
+    
+/////////////////////////////////Comentario de texto de 100 caracteres ///////////////////////////////////////////////  
+    
+    $('#comentario').keyup(function(){
+            var caracteres=$("#comentario").val().length
+            var tope= 100;
+            document.getElementById("com").innerHTML="Caracteres usados"+caracteres
+            document.getElementById("comres").innerHTML="Caracteres restantes"+(100-caracteres)  
+
+            var input=  document.getElementById('comentario');
+            input.addEventListener('input',function(){
+            if (this.value.length > 100) 
+            this.value = this.value.slice(0,100); 
+            })
+
+    });
+    
+ /////////////////////////////////radio botton///////////////////////////////////////////////     
+    
+	 $("input[name=boletin]").click(function () { 
+         document.getElementById("comres").innerHTML= $('input:radio[name=boletin]:checked').val()
+     
+    });
+    
+ /////////////////////////////////envio///////////////////////////////////////////////   
+    
+    
+        $("#boton").click(function(){
+        $("#contenido").fadeOut()
+        document.getElementById("resultado").innerHTML="<img style='float:right' src='bar.jpg'><br>Se ha enviado correctamente tu formulario!!<br><br><b>Nombre:</b>" + $("#nombre").val()+
+            "<br><b>Apellido:</b>"+$("#apellidos").val()+"<br><b>Direccion:</b>"+$("#direccion").val()+"<br><b>comarca:</b>"+$('select[name=comarca]').val()+"<br><b>Mail:</b>"+$('#email').val()+"<br><b>Fecha de nacimiento:</b>"+$("#any").val()+"<br><b>teléfono:</b>"+$("#t").val()
+            
+ 
+        });
+    
+    
+    
+});
+
+
+</script>
+
+<div class="container">
+<h1 id="resultado"></h1>
+</div>
+<div id ="contenido">
+
+<div class="panel panel-default container" id="formu">
+<div class="container col-sm-8 col-sm-offset-2">
+
+
+	<br><br><br>
+	<fieldset><legend>USUARIO: Javier Ortí Marina<img style="float:right" src="bar.jpg"></legend>
+<h1>Formulario segunda parte</h1>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    
+    
+    
+<form name="contacto" id="contacto" method="post">
+
+    <!--nombre y apellidos-->
+    <div class="form-group">	
+        <label for="nombre">Nombre:</label>
+        <input name="nombre"  class="form-control" id="nombre" size="30" value="" placeholder=" introduzca nombre" required/><a id="nom"></a><br><br>
+        <label for="apellidos">Apellidos:</label>
+        <input name="apellidos" class="form-control" id="apellidos" size="30" value="" placeholder="introduzca Apellidos" required/><a id="ape"></a><br><br>
+        <!--dirección y comarca-->
+        <label for="direcione">Direccion:</label>
+        <input name="direccion" class="form-control" id="direccion" size="30" value=""  placeholder="eje. Calle Mallorca 10"  required/><a id="dir"></a><br><br>
+    </div>
+    <label >Comarca:</label>
+    <select name="comarca" class="form-control" id="comarca" selected="baix penedes">
+        <option value="baix penedes">baix penedes</option>
+        <option value="alt camp">alt camp</option>
+        <option value="baix llobregat">baix llobregat</option>
+        <option value="barcelones">barcelones</option>
+    </select><a id="error"></a><br><br>
+
+    <!--correo telefono-->
+    <label >Teléfono:</label>
+    <input type="text" id="t" name="tel" class="input-medium bfh-phone" data-format="+34 (ddd) ddd-dddd" required/><a id="tlf"></a><br><br>
+
+    <!--correo electrónico(mail)-->
+    <label for="email">Email:</label>
+    <input name="email" class="form-control" id="email" size="45" value="" placeholder="you@example.com" required/><a id="mail"></a><br><br>
+
+
+    <!--edad-->
+
+    <div class="form-group row">
+     <div class="col-10">
+       <label style="margin-left: 2%" for="edad">Edad:</label>
+        <input type="number" id="dia" value="" placeholder="Día" required/>
+        <input type="number" id="mes" value="" placeholder="Mes" required/>  
+        <input type="number" id="any" value="" placeholder="Año" required/>
+      </div><a id="menord"></a><br><a id="menora"></a><br><a id="menorm"></a>
+        </div>
+    <!--dni -->
+    <div class="form-group">	
+        <label for="nombre">DNI:</label>
+        <input name="nombre"  class="form-control" id="dni" size="30" value=""  placeholder="Ej.12345678A" required/><a id="id" ></a>
+    </div><br>
+
+
+    <!--matricula-->
+
+    <label for="matriucla" >Matricula:</label>
+    <select name="matricula" id="matricula" class="form-control">
+        <option value="DAW">DAW</option>
+        <option value="ASIX">ASIX</option>
+        <option value="DAM">DAM</option>
+        <option value="POO">POO</option>
+    </select><a id="mat"></a><a id="mat1"></a><br><br>
+
+    <!--curso-->
+
+    <label for="Curso" >Curso:</label>
+    <select name="curso" id="curso" class="form-control">
+        <option value="1º">1º</option>
+        <option value="2º">2º</option>
+        <option value="3º">3º</option>
+        <option value="4º">4º</option>
+    </select><a id="cur"></a><br><br>
+
+    <!--año academico-->
+
+
+    <label for="ano">Año académico:</label> 
+    <input type="text"  class="form-control" id="anyAcademic" value="" placeholder="Año" required/>
+    <a id="aca"></a>  <br><br>
+
+    <!--Comentario-->
+
+    <label for="comentario">Comentario</label>
+    <textarea name="comentario"  class="form-control" id="comentario" cols="50" rows="2"></textarea>
+     <a id="com"></a>  <br>
+    <a id="comres"></a> <br><br>
+    
+    
+    
+    
+    <label for="legal"><input type="checkbox" name="legal" id="legal" /> Estoy de acuerdo</label><br>
+    <label>Información 
+        <input type="radio" name="boletin" value="si estoy de acuerdo" />Si 
+        <input type="radio" name="boletin" value="no estoy de acuerdo" />No <a id="b"></a>
+    </label>
+    
+    <button type="submit" id="boton" class="btn btn-primary pull-right"  >Enviar</button><br><br><br>
+</form>
+    </fieldset>
+
+  
+    </div>
+    </div>
+   </div> 
+ 
+           <script src="Bootstrad/js/jquery.js"></script>
+    <script src="Bootstrad/js/bootstrap.min.js"></script>
+</body>
+</html>
